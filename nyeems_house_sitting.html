@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nyeem's House Sitting | Simple, Reliable Care</title>
+  <meta name="description" content="Professional and dependable house sitting by Nyeem. Easy hourly pricing and simple booking." />
+  <style>
+    :root {
+      --ink: #18212b;
+      --muted: #66727d;
+      --bg: #f6f8f7;
+      --card: #ffffff;
+      --line: #e3e8e5;
+      --accent: #1f6f55;
+      --accent-dark: #185740;
+      --soft: #e9f4ef;
+      --danger: #b44a4a;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1080px, calc(100% - 32px)); margin: auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav {
+      min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .logo { font-weight: 800; letter-spacing: -.4px; font-size: 1.1rem; }
+    .navlinks { display: flex; gap: 22px; color: var(--muted); font-size: .94rem; }
+    .navlinks a:hover { color: var(--accent); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 0; border-radius: 10px; padding: 12px 18px; font-weight: 750;
+      cursor: pointer; transition: .18s ease; font-size: .95rem;
+    }
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+    .btn-light { background: white; color: var(--accent); border: 1px solid var(--line); }
+    .hero { padding: 82px 0 68px; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 48px; align-items: center; }
+    .eyebrow {
+      display: inline-block; padding: 6px 10px; border-radius: 999px;
+      background: var(--soft); color: var(--accent); font-weight: 750; font-size: .8rem;
+      margin-bottom: 14px;
+    }
+    h1 { font-size: clamp(2.5rem, 6vw, 4.8rem); line-height: .98; letter-spacing: -3px; margin: 0 0 20px; }
+    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 620px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .hero-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 20px;
+      padding: 26px; box-shadow: 0 16px 45px rgba(24,33,43,.07);
+    }
+    .price { font-size: 2.5rem; font-weight: 850; letter-spacing: -1px; }
+    .price small { font-size: .95rem; color: var(--muted); font-weight: 600; }
+    .checklist { list-style: none; padding: 0; margin: 20px 0 0; }
+    .checklist li { padding: 9px 0; border-bottom: 1px solid var(--line); }
+    .checklist li:last-child { border-bottom: 0; }
+    section { padding: 72px 0; }
+    .section-head { margin-bottom: 30px; }
+    .section-head h2 { font-size: 2rem; letter-spacing: -1px; margin: 0 0 7px; }
+    .section-head p { color: var(--muted); margin: 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+    .icon {
+      width: 42px; height: 42px; border-radius: 12px; background: var(--soft);
+      display: grid; place-items: center; color: var(--accent); font-weight: 900; margin-bottom: 15px;
+    }
+    .card h3 { margin: 0 0 7px; }
+    .card p { margin: 0; color: var(--muted); }
+    .booking { background: white; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+    .calendar-box, .form-box { background: var(--bg); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
+    .calendar-top { display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px; }
+    .calendar-top button {
+      border: 1px solid var(--line); background: white; width: 38px; height: 38px;
+      border-radius: 9px; cursor: pointer; font-size: 1.1rem;
+    }
+    .month { font-weight: 800; }
+    .week { display:grid; grid-template-columns:repeat(7,1fr); gap: 5px; margin-bottom: 5px; }
+    .week span { text-align:center; font-size:.75rem; color:var(--muted); font-weight:700; padding:5px 0; }
+    .days { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
+    .day {
+      min-height: 43px; border: 1px solid transparent; border-radius: 9px; background: white;
+      cursor:pointer; font: inherit;
+    }
+    .day:hover:not(:disabled) { border-color: var(--accent); }
+    .day.selected { background: var(--accent); color: white; font-weight: 800; }
+    .day.today { outline: 2px solid #b8d7ca; }
+    .day:disabled { opacity: .35; cursor: not-allowed; }
+    label { display:block; font-weight:700; font-size:.9rem; margin: 13px 0 6px; }
+    input, select, textarea {
+      width:100%; border:1px solid var(--line); background:white; border-radius:10px;
+      padding:12px; font: inherit; color:var(--ink); outline:none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(31,111,85,.1); }
+    textarea { resize: vertical; min-height: 90px; }
+    .selected-date { margin: 12px 0; color: var(--muted); font-size: .9rem; }
+    .total {
+      margin: 16px 0; padding: 15px; background: white; border: 1px solid var(--line);
+      border-radius: 12px; display:flex; justify-content:space-between; align-items:center;
+    }
+    .total strong { font-size: 1.25rem; }
+    .note { color:var(--muted); font-size:.82rem; margin-top:10px; }
+    .contact {
+      text-align:center; background: var(--soft); border-radius: 20px; padding: 45px 20px;
+    }
+    .contact h2 { margin: 0 0 8px; font-size:2rem; }
+    .contact p { color:var(--muted); margin:0 0 20px; }
+    footer { padding: 25px 0 35px; color: var(--muted); font-size: .85rem; }
+    .footer-row { display:flex; justify-content:space-between; gap:15px; flex-wrap:wrap; }
+    .status { margin-top: 10px; font-weight: 700; color: var(--accent); min-height: 22px; }
+    @media (max-width: 800px) {
+      .hero-grid, .booking-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      .navlinks { display:none; }
+      .hero { padding-top: 55px; }
+      h1 { letter-spacing:-2px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">Nyeem's House Sitting</div>
+      <div class="navlinks">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#book">Book</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="btn btn-primary" href="#book">Sign Up</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">LOCAL • SIMPLE • RELIABLE</span>
+        <h1>Your home.<br>Looked after.</h1>
+        <p>Need someone to keep an eye on your home while you're away? I'm Nyeem, and I provide simple, dependable house sitting by the hour.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#book">Check Dates & Book</a>
+          <a class="btn btn-light" href="tel:5104071921">Call Nyeem</a>
+        </div>
+      </div>
+      <div class="hero-card" id="pricing">
+        <div style="color:var(--muted);font-weight:700">Simple hourly pricing</div>
+        <div class="price">$18 <small>/ hour</small></div>
+        <p style="color:var(--muted);margin:0">Straightforward pricing with no complicated packages.</p>
+        <div style="margin-top:18px;padding:14px;background:var(--soft);border-radius:12px">
+          <strong>Payment methods</strong>
+          <div style="color:var(--muted);margin-top:5px">Cash • Cash App • Apple Pay • PayPal • Venmo</div>
+        </div>
+        <ul class="checklist">
+          <li>✓ House check-ins</li>
+          <li>✓ Bring in mail & packages</li>
+          <li>✓ Water plants</li>
+          <li>✓ Basic home check</li>
+          <li>✓ Keep you updated</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What I can help with</h2>
+        <p>Easy house sitting for when you need an extra set of eyes on your home.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">⌂</div>
+          <h3>Home checks</h3>
+          <p>I'll check that everything looks normal and secure.</p>
+        </div>
+        <div class="card">
+          <div class="icon">✉</div>
+          <h3>Mail & packages</h3>
+          <p>I'll bring in mail and packages so they aren't left outside.</p>
+        </div>
+        <div class="card">
+          <div class="icon">✿</div>
+          <h3>Small tasks</h3>
+          <p>Water plants and handle other simple tasks you agree on ahead of time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking" id="book">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Pick a date and sign up</h2>
+        <p>Select an available date, choose your hours, and send your request.</p>
+      </div>
+
+      <div class="booking-grid">
+        <div class="calendar-box">
+          <div class="calendar-top">
+            <button id="prev" aria-label="Previous month">‹</button>
+            <div class="month" id="monthLabel"></div>
+            <button id="next" aria-label="Next month">›</button>
+          </div>
+          <div class="week">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div class="days" id="days"></div>
+          <div class="selected-date" id="selectedDate">Choose a date to continue.</div>
+          <div class="note">Dates shown as unavailable are already blocked on this demo calendar. You can edit availability in the HTML file.</div>
+        </div>
+
+        <div class="form-box">
+          <form id="bookingForm">
+            <label for="name">Your name</label>
+            <input id="name" required placeholder="First and last name" />
+
+            <label for="phone">Your phone number</label>
+            <input id="phone" type="tel" required placeholder="(510) 555-5555" />
+
+            <label for="hours">How many hours?</label>
+            <select id="hours" required>
+              <option value="1">1 hour — $18</option>
+              <option value="2">2 hours — $36</option>
+              <option value="3">3 hours — $54</option>
+              <option value="4">4 hours — $72</option>
+              <option value="5">5 hours — $90</option>
+              <option value="6">6 hours — $108</option>
+              <option value="7">7 hours — $126</option>
+              <option value="8">8 hours — $144</option>
+            </select>
+
+            <label for="time">Preferred start time</label>
+            <input id="time" type="time" required />
+
+            <label for="details">Anything I should know?</label>
+            <textarea id="details" placeholder="Example: bring in mail, water plants, check doors..."></textarea>
+
+            <div class="total">
+              <span>Estimated total</span>
+              <strong id="total">$18</strong>
+            </div>
+
+            <button class="btn btn-primary" type="submit" style="width:100%">Send Booking Request</button>
+            <div class="status" id="status"></div>
+            <div class="note">Submitting opens your phone/email app with the booking details. I'll confirm the date and time with you before the booking is final.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <h2>Questions? Contact Nyeem.</h2>
+        <p>Call or text to ask about availability, pricing, or a custom request.</p>
+        <p style="margin-top:12px"><strong>Payments accepted:</strong> Cash, Cash App, Apple Pay, PayPal & Venmo</p>
+        <a class="btn btn-primary" href="tel:5104071921">Call / Text 510-407-1921</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div>© 2026 Nyeem's House Sitting</div>
+    <div>Simple service. Clear pricing. Reliable communication.</div>
+  </div>
+</footer>
+
+<script>
+  const RATE = 18;
+  const blockedDates = []; // Add dates like "2026-09-05" here when you are booked.
+  let view = new Date();
+  view.setDate(1);
+  let selected = null;
+
+  const monthLabel = document.getElementById("monthLabel");
+  const daysEl = document.getElementById("days");
+  const selectedDateEl = document.getElementById("selectedDate");
+  const hoursEl = document.getElementById("hours");
+  const totalEl = document.getElementById("total");
+  const statusEl = document.getElementById("status");
+
+  function dateKey(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${day}`;
+  }
+
+  function renderCalendar() {
+    const year = view.getFullYear();
+    const month = view.getMonth();
+    monthLabel.textContent = view.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+    daysEl.innerHTML = "";
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    for (let i = 0; i < firstDay; i++) {
+      const blank = document.createElement("div");
+      daysEl.appendChild(blank);
+    }
+
+    for (let n = 1; n <= daysInMonth; n++) {
+      const d = new Date(year, month, n);
+      const key = dateKey(d);
+      const btn = document.createElement("button");
+      btn.className = "day";
+      btn.textContent = n;
+
+      const unavailable = d < today || blockedDates.includes(key);
+      btn.disabled = unavailable;
+
+      if (d.getTime() === today.getTime()) btn.classList.add("today");
+      if (selected && key === dateKey(selected)) btn.classList.add("selected");
+
+      btn.addEventListener("click", () => {
+        selected = d;
+        selectedDateEl.textContent = `Selected: ${d.toLocaleDateString(undefined, {weekday:"long", month:"long", day:"numeric", year:"numeric"})}`;
+        renderCalendar();
+      });
+      daysEl.appendChild(btn);
+    }
+  }
+
+  document.getElementById("prev").addEventListener("click", () => {
+    view.setMonth(view.getMonth() - 1);
+    renderCalendar();
+  });
+  document.getElementById("next").addEventListener("click", () => {
+    view.setMonth(view.getMonth() + 1);
+    renderCalendar();
+  });
+
+  function updateTotal() {
+    totalEl.textContent = "$" + (Number(hoursEl.value) * RATE);
+  }
+  hoursEl.addEventListener("change", updateTotal);
+
+  document.getElementById("bookingForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!selected) {
+      statusEl.textContent = "Please choose a date first.";
+      statusEl.style.color = "var(--danger)";
+      return;
+    }
+
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const hours = Number(hoursEl.value);
+    const time = document.getElementById("time").value;
+    const details = document.getElementById("details").value.trim();
+    const dateText = selected.toLocaleDateString(undefined, {weekday:"long", month:"long", day:"numeric", year:"numeric"});
+    const total = hours * RATE;
+
+    const subject = encodeURIComponent("House Sitting Booking Request");
+    const body = encodeURIComponent(
+      `Hi Nyeem,\n\nI'd like to request house sitting.\n\nName: ${name}\nPhone: ${phone}\nDate: ${dateText}\nStart time: ${time}\nHours: ${hours}\nEstimated total: $${total}\nDetails: ${details || "None"}\n\nPlease confirm availability.`
+    );
+
+    statusEl.style.color = "var(--accent)";
+    statusEl.textContent = "Opening your email app to send the request...";
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  });
+
+  renderCalendar();
+  updateTotal();
+</script>
+</body>
+</html>
